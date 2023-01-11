@@ -141,7 +141,7 @@ local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tost
 
 function Kavo:ToggleUI()
     if game.CoreGui[LibName].Enabled then
-        close.ImageTransparency = 1
+        game.CoreGui[LibName].Main.MainHeader.close.ImageTransparency = 1
         wait()
         game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 			Size = UDim2.new(0,0,0,0),

@@ -143,7 +143,7 @@ function Kavo:ToggleUI()
     if game.CoreGui[LibName].Enabled then
         game.CoreGui[LibName].Main.MainHeader.close.ImageTransparency = 1
         wait()
-        game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        game.TweenService:Create(Game.CoreGui[LibName].Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 			Size = UDim2.new(0,0,0,0),
 		}):Play()
         wait(0.1)
@@ -151,7 +151,7 @@ function Kavo:ToggleUI()
     else
         game.CoreGui[LibName].Enabled = true
         game.CoreGui[LibName].Main.MainHeader.close.ImageTransparency = 0
-        game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        game.TweenService:Create(Game.CoreGui[LibName].Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 			Size = UDim2.new(0, 525, 0, 318),
 		}):Play()
     end

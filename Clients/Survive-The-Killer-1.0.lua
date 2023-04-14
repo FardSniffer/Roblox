@@ -236,9 +236,9 @@ clipSection:NewTextBox("Clip Amount", "Adds your Root's CFrame to the value you 
 end)
 
 -- Teleport Section
-teleportSection:NewTextBox("Teleport Player", "Teleports to the player you specified", function(player)
-	if game:GetService("Players")[player] and game:GetService("Players")[player].Character and game:GetService("Players")[player].Character.HumanoidRootPart then
-		player.Character.HumanoidRootPart.CFrame = player:GetService("Players")[player].Character.HumanoidRootPart.CFrame
+teleportSection:NewTextBox("Teleport Player", "Teleports to the player you specified", function(target)
+	if game:GetService("Players")[target] and game:GetService("Players")[target].Character and game:GetService("Players")[target].Character.HumanoidRootPart then
+		player.Character.HumanoidRootPart.CFrame = player:GetService("Players")[target].Character.HumanoidRootPart.CFrame
 	end
 end)
 

@@ -114,12 +114,14 @@ local duckClient = guiLibrary.CreateLib("Duck Client v0.1-dev1")
 
 local playerTab = duckClient:NewTab("Player")
 local renderTab = duckClient:NewTab("Render")
+local movementTab = duckClient:NewTab("Movement")
 local otherTab = duckClient:NewTab("Other")
 
 -- For Player Tab
 local playerESPSection = playerTab:NewSection("ESP")
-local flightSection = playerTab:NewSection("Flight")
-local clipSection = playerTab:NewSection("Clip")
+local flightSection = movementTab:NewSection("Flight")
+local clipSection = movementTab:NewSection("Clip")
+local teleportSection = movementTab:NewSection("Teleport")
 
 -- For Render Tab
 local antiFogSection = renderTab:NewSection("AntiFog")
@@ -148,6 +150,7 @@ playerESPSection:NewColorPicker("Player ESP Color", "The highlighted ESP Color f
 	end
 end)
 
+-- Movement Tab
 -- Flight Section
 flightSection:NewToggle("Flight", "Grants you the ability to fly", function()
 	getgenv()[tag.."Flight"].Toggled = not getgenv()[tag.."Flight"].Toggled
@@ -229,6 +232,13 @@ clipSection:NewTextBox("Clip Amount", "Adds your Root's CFrame to the value you 
 
 	else
 		warn("Specified value for Clip may be incorrect. Could not change the HumanoidRootPart's Position. (Specified Position: "..tostring(position).." | New Position: Possibly nil)")
+	end
+end)
+
+-- Teleport Section
+teleportSection:NewTextBox("Teleport Player", "Teleports to the player you specified", function(player)
+	if game:GetService("Players")[player] and game:GetService("Players")[player].Character and game:GetService("Players")[player].Character.HumanoidRootPart then
+		player.Character.HumanoidRootPart.CFrame = player:GetService("Players")[player].Character.HumanoidRootPart.CFrame
 	end
 end)
 

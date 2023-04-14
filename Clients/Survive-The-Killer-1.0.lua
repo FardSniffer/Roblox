@@ -238,7 +238,7 @@ end)
 -- Teleport Section
 teleportSection:NewTextBox("Teleport Player", "Teleports to the player you specified", function(target)
 	if game:GetService("Players")[target] and game:GetService("Players")[target].Character and game:GetService("Players")[target].Character.HumanoidRootPart then
-		player.Character.HumanoidRootPart.CFrame = player:GetService("Players")[target].Character.HumanoidRootPart.CFrame
+		player.Character.HumanoidRootPart.CFrame = game:GetService("Players")[target].Character.HumanoidRootPart.CFrame
 	end
 end)
 

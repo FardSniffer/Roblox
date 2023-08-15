@@ -103,15 +103,22 @@ local function HighlightPlayers()
 	end
 end
 
--- FogEnd Listener
-local fogEnd = 274917
-
 game:GetService("Lighting"):GetPropertyChangedSignal("FogEnd"):Connect(function()
-	if game:GetService("Lighting").FogEnd ~= fogEnd and getgenv()[tag.."Light"].AntiFog.Server ~= game:GetService("Lighting").FogEnd then
+	if game:GetService("Lighting").FogEnd ~= 69425 and getgenv()[tag.."Light"].AntiFog.Server ~= game:GetService("Lighting").FogEnd then
 		getgenv()[tag.."Light"].AntiFog.Server = game:GetService("Lighting").FogEnd
 
 		if getgenv()[tag.."Light"].AntiFog.Toggled and getgenv()[tag.."Light"].AntiFog.Enabled then
-			game:GetService("Lighting").FogEnd = fogEnd
+			game:GetService("Lighting").FogEnd = 69425
+		end
+	end
+end)
+
+game:GetService("Lighting"):GetPropertyChangedSignal("Brightness"):Connect(function()
+	if game:GetService("Lighting").Brightness ~= getgenv()[tag.."Light"].Brightness.Brightness and getgenv()[tag.."Light"].Brightness.Server ~= game:GetService("Lighting").Brightness then
+		getgenv()[tag.."Light"].AntiFog.Server = game:GetService("Lighting").FogEnd
+
+		if getgenv()[tag.."Light"].Brightness.Toggled and getgenv()[tag.."Light"].Brightness.Enabled then
+			game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Brightness
 		end
 	end
 end)
@@ -256,7 +263,10 @@ antiFogSection:NewToggle("Anti Fog", "Change Fog render in your game", function(
 	getgenv()[tag.."Light"].AntiFog.Toggled = not getgenv()[tag.."Light"].AntiFog.Toggled
 
 	if getgenv()[tag.."Light"].AntiFog.Toggled and getgenv()[tag.."Light"].AntiFog.Enabled then
-		game:GetService("Lighting").FogEnd = fogEnd
+		if game:GetService("Lighting").FogEnd < 500 then
+			getgenv()[tag.."Light"].AntiFog.Server = game:GetService("Lighting").FogEnd
+		end
+		game:GetService("Lighting").FogEnd = 99999
 
 	else
 		game:GetService("Lighting").FogEnd = getgenv()[tag.."Light"].AntiFog.Server
@@ -267,7 +277,10 @@ antiFogSection:NewKeybind("Anti Fog Keybind", "Keybind for Anti Fog. Default is 
 	getgenv()[tag.."Light"].AntiFog.Enabled = not getgenv()[tag.."Light"].AntiFog.Enabled
 
 	if getgenv()[tag.."Light"].AntiFog.Toggled and getgenv()[tag.."Light"].AntiFog.Enabled then
-		game:GetService("Lighting").FogEnd = fogEnd
+		if game:GetService("Lighting").FogEnd < 500 then
+			getgenv()[tag.."Light"].AntiFog.Server = game:GetService("Lighting").FogEnd
+		end
+		game:GetService("Lighting").FogEnd = 69425
 
 	else
 		game:GetService("Lighting").FogEnd = getgenv()[tag.."Light"].AntiFog.Server
@@ -279,6 +292,8 @@ lightingSection:NewToggle("Brightness", "Change brightness in your game", functi
 
 	if getgenv()[tag.."Light"].Brightness.Toggled and getgenv()[tag.."Light"].Brightness.Enabled then
 		game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Brightness
+	else
+		game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Server
 	end
 end)
 
@@ -287,6 +302,8 @@ lightingSection:NewSlider("Brightness Value", "Change the value of the brightnes
 
 	if getgenv()[tag.."Light"].Brightness.Toggled and getgenv()[tag.."Light"].Brightness.Enabled then
 		game:GetService("Lighting").Brightness = value
+	else
+		game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Server
 	end
 end)
 
@@ -295,6 +312,8 @@ lightingSection:NewKeybind("Brightness Keybind", "Keybind for Brightness. Defaul
 
 	if getgenv()[tag.."Light"].Brightness.Toggled and getgenv()[tag.."Light"].Brightness.Enabled then
 		game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Brightness
+	else
+		game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Server
 	end	
 end)
 
@@ -327,7 +346,14 @@ UISection:NewButton("Destruct UI", "Destructs the client", function()
 			Toggled = false,
 			Enabled = false,
 	
-			Server = serverFog
+			Server = 124124
+		},
+
+		Brightness = {
+			Toggled = false,
+			Enabled = false,
+	
+			Server = 1
 		}
 	
 	}

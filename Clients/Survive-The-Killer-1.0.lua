@@ -9,6 +9,10 @@ local lightingService = game:GetService("Lighting")
 
 -- Variables
 local player = game:GetService("Players").LocalPlayer
+repeat 
+	wait(1)
+	print("Waiting on Humanoid...")
+until player.Character.Humanoid
 
 local animator = player.Character.Humanoid:FindFirstChildOfClass("Animator")
 local animate = player.Character:WaitForChild("Animate")

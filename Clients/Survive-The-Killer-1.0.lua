@@ -53,6 +53,13 @@ getgenv()[tag.."Light"] = {
 		Enabled = false,
 
 		Server = game:GetService("Lighting").FogEnd
+	},
+
+	Brightness = {
+		Toggled = false,
+		Enabled = false,
+
+		Brightness = 3
 	}
 
 }
@@ -125,6 +132,7 @@ local teleportSection = movementTab:NewSection("Teleport")
 
 -- For Render Tab
 local antiFogSection = renderTab:NewSection("AntiFog")
+local lightingSection = renderTab:NewSection("Lighting")
 
 -- For Other Tab
 local UISection = otherTab:NewSection("UI")
@@ -264,6 +272,30 @@ antiFogSection:NewKeybind("Anti Fog Keybind", "Keybind for Anti Fog. Default is 
 	else
 		game:GetService("Lighting").FogEnd = getgenv()[tag.."Light"].AntiFog.Server
 	end
+end)
+
+lightingSection:NewToggle("Brightness", "Change brightness in your game", function()
+	getgenv()[tag.."Light"].Brightness.Toggled = not getgenv()[tag.."Light"].Brightness.Toggled
+
+	if getgenv()[tag.."Light"].Brightness.Toggled and getgenv()[tag.."Light"].Brightness.Enabled then
+		game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Brightness
+	end
+end)
+
+lightingSection:NewSlider("Brightness Value", "Change the value of the brightness", 10, -10, function(value)
+	getgenv()[tag.."Light"].Brightness.Brightness = value
+
+	if getgenv()[tag.."Light"].Brightness.Toggled and getgenv()[tag.."Light"].Brightness.Enabled then
+		game:GetService("Lighting").Brightness = value
+	end
+end)
+
+lightingSection:NewKeybind("Brightness Keybind", "Keybind for Brightness. Default is B", Enum.KeyCode.B, function()
+	getgenv()[tag.."Light"].Brightness.Enabled = not getgenv()[tag.."Light"].Brightness.Enabled
+
+	if getgenv()[tag.."Light"].Brightness.Toggled and getgenv()[tag.."Light"].Brightness.Enabled then
+		game:GetService("Lighting").Brightness = getgenv()[tag.."Light"].Brightness.Brightness
+	end	
 end)
 
 -- Other Tab

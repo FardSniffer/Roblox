@@ -54,6 +54,12 @@ getgenv()[tag.."Flight"] = {
 	Speed = 0.5
 }
 
+local atmosphere
+if not game:GetService("Lighting"):FindFirstChildOfClass("Atmosphere") then
+	atmosphere = Instance.new("Atmosphere")
+	atmosphere.Parent = game:GetService("Lighting")
+end
+
 getgenv()[tag.."Light"] = {
 
 	NoFog = {
@@ -67,7 +73,7 @@ getgenv()[tag.."Light"] = {
 		Toggled = false,
 		Enabled = false,
 
-		Server = game:GetService("Lighting").Atmosphere
+		Server = atmosphere
 	},
 
 	Brightness = {
@@ -332,14 +338,14 @@ noAtmosphereSection:NewToggle("NoAtmosphere", "Removes atmosphere effect from yo
 		game:GetService("Lighting").Atmosphere:Destroy()
 
 	else
-		if not game:GetService("Lighting").Atmosphere then
+		if not game:GetService("Lighting"):FindFirstChildOfClass("Atmosphere") then
 			getgenv()[tag.."Light"].NoAtmosphere.Server:Clone().Parent = game:GetService("Lighting")
 		end
 	end
 end)
 
 noAtmosphereSection:NewKeybind("NoAtmosphere", "Keybind for NoAtmosphere. Default is N", Enum.KeyCode.N, function()
-	getgenv()[tag.."Light"].NoFog.Enabled = not getgenv()[tag.."Light"].NoFog.Enabled
+	getgenv()[tag.."Light"].NoAtmosphere.Enabled = not getgenv()[tag.."Light"].NoAtmosphere.Enabled
 
 	if getgenv()[tag.."Light"].NoAtmosphere.Toggled and getgenv()[tag.."Light"].NoAtmosphere.Enabled then
 		if game:GetService("Lighting").Atmosphere then
@@ -349,7 +355,7 @@ noAtmosphereSection:NewKeybind("NoAtmosphere", "Keybind for NoAtmosphere. Defaul
 		game:GetService("Lighting").Atmosphere:Destroy()
 
 	else
-		if not game:GetService("Lighting").Atmosphere then
+		if not game:GetService("Lighting"):FindFirstChildOfClass("Atmosphere") then
 			getgenv()[tag.."Light"].NoAtmosphere.Server:Clone().Parent = game:GetService("Lighting")
 		end
 	end

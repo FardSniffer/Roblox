@@ -63,7 +63,7 @@ getgenv()[tag.."Light"] = {
 		Server = game:GetService("Lighting").FogEnd
 	},
 
-	NoAtmosphere {
+	NoAtmosphere = {
 		Toggled = false,
 		Enabled = false,
 

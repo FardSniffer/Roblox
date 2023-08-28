@@ -12,7 +12,7 @@ local player = game:GetService("Players").LocalPlayer
 local humanoid
 
 while not humanoid do
-	humanoid = character:FindFirstChildOfClass("Humanoid")
+	humanoid = player.Character:FindFirstChildOfClass("Humanoid")
 	if not humanoid then
 		character.ChildAdded:Wait(0.1)
 	end

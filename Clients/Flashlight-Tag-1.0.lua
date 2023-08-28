@@ -73,7 +73,11 @@ getgenv()[tag.."Light"] = {
 		Toggled = false,
 		Enabled = false,
 
-		Server = atmosphere
+		Server = atmosphere,
+		Ambience = {
+			Ambient = game:GetService("Lighting").Ambient,
+			OutdoorAmbient = game:GetService("Lighting").OutdoorAmbient
+		}
 	},
 
 	Brightness = {
@@ -331,16 +335,25 @@ noAtmosphereSection:NewToggle("NoAtmosphere", "Removes atmosphere effect from yo
 	getgenv()[tag.."Light"].NoAtmosphere.Toggled = not getgenv()[tag.."Light"].NoAtmosphere.Toggled
 
 	if getgenv()[tag.."Light"].NoAtmosphere.Toggled and getgenv()[tag.."Light"].NoAtmosphere.Enabled then
+		getgenv()[tag.."Light"].NoAtmosphere.Ambience.Ambient = game:GetService("Lighting").Ambient
+		getgenv()[tag.."Light"].NoAtmosphere.Ambience.OutdoorAmbient = game:GetService("Lighting").OutdoorAmbient
+
 		if game:GetService("Lighting").Atmosphere then
 			getgenv()[tag.."Light"].NoAtmosphere.Server = game:GetService("Lighting").Atmosphere
 		end
 
 		game:GetService("Lighting").Atmosphere:Destroy()
 
+		game:GetService("Lighting").Ambient = Color3.fromRGB(255, 255, 255)
+		game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+
 	else
 		if not game:GetService("Lighting"):FindFirstChildOfClass("Atmosphere") then
 			getgenv()[tag.."Light"].NoAtmosphere.Server:Clone().Parent = game:GetService("Lighting")
 		end
+
+		game:GetService("Lighting").Ambient = getgenv()[tag.."Light"].NoAtmosphere.Ambience.Ambient
+		game:GetService("Lighting").OutdoorAmbient = getgenv()[tag.."Light"].NoAtmosphere.Ambience.OutdoorAmbient
 	end
 end)
 
@@ -348,16 +361,25 @@ noAtmosphereSection:NewKeybind("NoAtmosphere", "Keybind for NoAtmosphere. Defaul
 	getgenv()[tag.."Light"].NoAtmosphere.Enabled = not getgenv()[tag.."Light"].NoAtmosphere.Enabled
 
 	if getgenv()[tag.."Light"].NoAtmosphere.Toggled and getgenv()[tag.."Light"].NoAtmosphere.Enabled then
+		getgenv()[tag.."Light"].NoAtmosphere.Ambience.Ambient = game:GetService("Lighting").Ambient
+		getgenv()[tag.."Light"].NoAtmosphere.Ambience.OutdoorAmbient = game:GetService("Lighting").OutdoorAmbient
+
 		if game:GetService("Lighting").Atmosphere then
 			getgenv()[tag.."Light"].NoAtmosphere.Server = game:GetService("Lighting").Atmosphere
 		end
 
 		game:GetService("Lighting").Atmosphere:Destroy()
 
+		game:GetService("Lighting").Ambient = Color3.fromRGB(255, 255, 255)
+		game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+
 	else
 		if not game:GetService("Lighting"):FindFirstChildOfClass("Atmosphere") then
 			getgenv()[tag.."Light"].NoAtmosphere.Server:Clone().Parent = game:GetService("Lighting")
 		end
+
+		game:GetService("Lighting").Ambient = getgenv()[tag.."Light"].NoAtmosphere.Ambience.Ambient
+		game:GetService("Lighting").OutdoorAmbient = getgenv()[tag.."Light"].NoAtmosphere.Ambience.OutdoorAmbient
 	end
 end)
 
@@ -404,6 +426,9 @@ UISection:NewButton("Destruct UI", "Destructs the client", function()
 	local serverFog = getgenv()[tag.."Light"].NoFog.Server
 	local serverAtmosphere = getgenv()[tag.."Light"].NoAtmosphere.Server
 
+	local serverAmbient = getgenv()[tag.."Light"].NoAtmosphere.Ambience.Ambient
+	local serverOutdoorAmbient = getgenv()[tag.."Light"].NoAtmosphere.Ambience.OutdoorAmbient
+
 	getgenv()[tag.."PlayerESP"] = {
 		Toggled = false,
 		Enabled = false,
@@ -431,7 +456,11 @@ UISection:NewButton("Destruct UI", "Destructs the client", function()
 			Toggled = false,
 			Enabled = false,
 			
-			Server = serverAtmosphere
+			Server = serverAtmosphere,
+			Ambience = {
+				Ambient = game:GetService("Lighting").Ambient,
+				OutdoorAmbient = game:GetService("Lighting").OutdoorAmbient
+			}
 		},
 
 		Brightness = {
